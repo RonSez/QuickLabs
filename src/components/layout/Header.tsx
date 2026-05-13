@@ -95,7 +95,7 @@ export function Header() {
       <div
         id="mobile-menu"
         className={cn(
-          "md:hidden fixed inset-x-0 top-16 bottom-0 z-40 bg-bg/95 backdrop-blur-xl transition-[opacity,transform] duration-300 ease-out",
+          "md:hidden fixed inset-x-0 top-16 bottom-0 z-40 bg-bg transition-[opacity,transform] duration-300 ease-out",
           menuOpen
             ? "opacity-100 translate-y-0 pointer-events-auto"
             : "opacity-0 -translate-y-2 pointer-events-none"
