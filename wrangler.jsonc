@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "quicklabs-web",
+  "name": "quicklabs",
   "compatibility_date": "2025-05-01",
   "assets": {
     "directory": "./out",
