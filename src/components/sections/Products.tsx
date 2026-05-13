@@ -9,7 +9,7 @@ export function Products() {
   return (
     <section
       id="products"
-      className="relative pt-24 sm:pt-32 pb-48 sm:pb-56 border-t border-border"
+      className="relative pt-20 sm:pt-32 pb-20 sm:pb-48 md:pb-56 border-t border-border"
     >
       <Container>
         <Reveal>

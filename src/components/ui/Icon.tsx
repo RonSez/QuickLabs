@@ -9,6 +9,8 @@ import {
   ArrowUpRight,
   Quote,
   Mail,
+  Menu,
+  X,
   type LucideIcon,
 } from "lucide-react";
 
@@ -23,6 +25,8 @@ const map: Record<string, LucideIcon> = {
   ArrowUpRight,
   Quote,
   Mail,
+  Menu,
+  X,
 };
 
 type IconProps = {

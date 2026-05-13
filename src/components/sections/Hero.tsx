@@ -85,7 +85,7 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.2 }}
-          className="mt-20 flex items-center gap-4 font-mono text-[10px] uppercase tracking-[0.24em] text-fg-muted"
+          className="mt-12 sm:mt-20 flex items-center gap-4 font-mono text-[10px] uppercase tracking-[0.24em] text-fg-muted"
         >
           <span className="size-1.5 rounded-full bg-accent animate-pulse" />
           Two products live · Engineering for hire
