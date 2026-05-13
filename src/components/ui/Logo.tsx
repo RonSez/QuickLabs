@@ -21,7 +21,7 @@ export function Logo({ className, size = "sm", priority = false }: LogoProps) {
       style={{ height: h }}
     >
       <Image
-        src="/quicklabslogo.jpg"
+        src="/quicklabslogo.png"
         alt="QuickLabs — Software Development"
         width={w * 2}
         height={h * 2}
