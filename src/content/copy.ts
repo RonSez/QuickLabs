@@ -33,12 +33,6 @@ export const copy = {
     eyebrow: "How we work",
     title: "Three principles that show up in everything we ship.",
   },
-  reviews: {
-    eyebrow: "What people say",
-    title: "Notes from the people using what we ship.",
-    body:
-      "Quotes pulled from product testimonials and customer interviews. Attribution is by role to preserve confidentiality where requested.",
-  },
   contact: {
     eyebrow: "Contact",
     title: "Tell us what you're building.",
