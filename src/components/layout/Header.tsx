@@ -54,7 +54,7 @@ export function Header() {
             : "bg-transparent border-b border-transparent"
         )}
       >
-        <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
+        <div className="mx-auto flex h-24 w-full max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
           <Link
             href="/"
             aria-label={site.name}
@@ -101,7 +101,7 @@ export function Header() {
       <div
         id="mobile-menu"
         className={cn(
-          "md:hidden fixed inset-x-0 top-20 bottom-0 z-40 bg-bg transition-[opacity,transform] duration-300 ease-out",
+          "md:hidden fixed inset-x-0 top-24 bottom-0 z-40 bg-bg transition-[opacity,transform] duration-300 ease-out",
           menuOpen
             ? "opacity-100 translate-y-0 pointer-events-auto"
             : "opacity-0 -translate-y-2 pointer-events-none"
