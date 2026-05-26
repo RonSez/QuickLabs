@@ -10,7 +10,7 @@ export const copy = {
     eyebrow: "About",
     title: "A studio that builds — and ships its own.",
     body:
-      "Most agencies stop at delivery. We don't. QuickLabs operates two of its own products in regulated industries, which means every line of client code we write has shipped past our own bar for compliance, performance, and clinician- or operator-grade UX.",
+      "Most agencies stop at delivery. We don't. QuickLabs operates two of its own products in regulated industries — and brings the same rigor to client work, whether that's an AI engagement or a high-converting website for a business that wants a premium online presence.",
     stats: [
       { value: "2", label: "products live in regulated verticals" },
       { value: "AI-native", label: "from research to deployment" },

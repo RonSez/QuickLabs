@@ -12,10 +12,11 @@ export const site = {
 } as const;
 
 export const nav = [
-  { label: "Products", href: "#products" },
-  { label: "Services", href: "#services" },
-  { label: "Approach", href: "#approach" },
-  { label: "Contact", href: "#contact" },
+  { label: "Products", href: "/#products" },
+  { label: "Services", href: "/#services" },
+  { label: "Web Design", href: "/web-design" },
+  { label: "Approach", href: "/#approach" },
+  { label: "Contact", href: "/#contact" },
 ] as const;
 
 export const social = [
