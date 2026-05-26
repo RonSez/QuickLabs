@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import type { Product } from "@/content/products";
 import { Container } from "@/components/ui/Container";
@@ -57,18 +58,27 @@ export function ProductDetail({ product, index }: Props) {
                 Product 0{index + 1} / {product.domain}
               </div>
 
-              <h3
-                className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.05]"
-              >
-                <span
-                  className="bg-clip-text text-transparent"
-                  style={{
-                    backgroundImage: `linear-gradient(120deg, var(--fg) 0%, var(--fg) 50%, ${accentColor2} 100%)`,
-                  }}
+              <div className="flex items-center gap-4">
+                <Image
+                  src={`/${product.slug}_logo.png`}
+                  alt=""
+                  width={128}
+                  height={128}
+                  className="shrink-0 size-12 sm:size-14 md:size-16 rounded-xl object-contain"
+                />
+                <h3
+                  className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.05]"
                 >
-                  {product.name}
-                </span>
-              </h3>
+                  <span
+                    className="bg-clip-text text-transparent"
+                    style={{
+                      backgroundImage: `linear-gradient(120deg, var(--fg) 0%, var(--fg) 50%, ${accentColor2} 100%)`,
+                    }}
+                  >
+                    {product.name}
+                  </span>
+                </h3>
+              </div>
               <p className="mt-4 text-lg sm:text-xl text-fg-muted leading-relaxed">
                 {product.tagline}
               </p>
