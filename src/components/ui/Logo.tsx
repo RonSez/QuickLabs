@@ -8,7 +8,7 @@ type LogoProps = {
 };
 
 const sizes: Record<NonNullable<LogoProps["size"]>, { h: number; w: number }> = {
-  sm: { h: 88, w: 88 },
+  sm: { h: 72, w: 72 },
   md: { h: 56, w: 56 },
   lg: { h: 80, w: 80 },
 };
