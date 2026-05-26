@@ -25,6 +25,9 @@ export const metadata: Metadata = {
 };
 
 const mail = `${copy.contact.cta.hrefBase}${site.email}`;
+const composeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+  site.email
+)}`;
 
 export default function WebDesignPage() {
   return (
@@ -227,7 +230,7 @@ export default function WebDesignPage() {
 
           <Reveal delay={0.15}>
             <div className="mt-12 flex flex-col items-center gap-4">
-              <Button href={mail} variant="primary">
+              <Button href={composeUrl} variant="primary" external>
                 <Icon name="Mail" size={16} />
                 Email us
               </Button>
