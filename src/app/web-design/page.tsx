@@ -227,7 +227,7 @@ export default function WebDesignPage() {
 
           <Reveal delay={0.15}>
             <div className="mt-12 flex flex-col items-center gap-4">
-              <Button href={mail} variant="primary" external>
+              <Button href={mail} variant="primary">
                 <Icon name="Mail" size={16} />
                 Email us
               </Button>

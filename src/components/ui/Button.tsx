@@ -37,6 +37,14 @@ export function Button(props: AsLink | AsButton) {
   const cls = cn(baseClass, variantClass[variant], className);
 
   if ("href" in props && props.href) {
+    const isProtocolLink = /^(mailto:|tel:|sms:)/.test(props.href);
+    if (isProtocolLink) {
+      return (
+        <a href={props.href} className={cls}>
+          {children}
+        </a>
+      );
+    }
     const isExternal = props.external ?? /^https?:\/\//.test(props.href);
     if (isExternal) {
       return (
