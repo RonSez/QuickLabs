@@ -16,7 +16,7 @@ export function About() {
         </Reveal>
 
         <Reveal delay={0.15}>
-          <ul className="mt-16 grid gap-6 sm:grid-cols-3 border-t border-border pt-10">
+          <ul className="mt-16 grid gap-6 sm:grid-cols-2 border-t border-border pt-10">
             {copy.about.stats.map((s) => (
               <li key={s.label}>
                 <div className="text-2xl sm:text-3xl font-semibold tracking-tight">

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { nav, site, social } from "@/content/site";
+import { nav, site } from "@/content/site";
 import { products } from "@/content/products";
 import { Container } from "@/components/ui/Container";
 import { Logo } from "@/components/ui/Logo";
@@ -58,24 +58,10 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col-reverse gap-4 sm:flex-row sm:items-center sm:justify-between border-t border-border pt-8">
+        <div className="mt-16 border-t border-border pt-8">
           <p className="text-xs text-fg-muted font-mono">
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>
-          <ul className="flex gap-6">
-            {social.map((s) => (
-              <li key={s.href}>
-                <a
-                  href={s.href}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="text-xs font-mono uppercase tracking-[0.18em] text-fg-muted hover:text-fg transition-colors"
-                >
-                  {s.label}
-                </a>
-              </li>
-            ))}
-          </ul>
         </div>
       </Container>
     </footer>

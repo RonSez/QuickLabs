@@ -12,7 +12,6 @@ export const copy = {
     body:
       "Most agencies stop at delivery. We don't. QuickLabs operates two of its own products in regulated industries — and brings the same rigor to client work, whether that's an AI engagement or a high-converting website for a business that wants a premium online presence.",
     stats: [
-      { value: "2", label: "products live in regulated verticals" },
       { value: "AI-native", label: "from research to deployment" },
       { value: "HIPAA · SOC 2 · ISO 27001", label: "compliance-aware by default" },
     ],

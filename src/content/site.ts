@@ -18,8 +18,3 @@ export const nav = [
   { label: "Approach", href: "/#approach" },
   { label: "Contact", href: "/#contact" },
 ] as const;
-
-export const social = [
-  { label: "GitHub", href: "https://github.com/quicklabs" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/quicklabs" },
-] as const;
