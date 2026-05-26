@@ -40,8 +40,8 @@ export function SectionHeading({
       {body && (
         <p
           className={cn(
-            "mt-5 text-pretty text-base sm:text-lg text-fg-muted leading-relaxed max-w-2xl [&]:[text-wrap:pretty]",
-            isCenter && "mx-auto"
+            "mt-5 text-pretty text-base sm:text-lg text-fg-muted leading-relaxed [&]:[text-wrap:pretty]",
+            isCenter ? "mx-auto text-center" : "max-w-2xl"
           )}
         >
           {body}
