@@ -4,7 +4,7 @@ export const site = {
   description:
     "QuickLabs is a software development studio that ships client work and incubates its own AI products — including rounds.health and redlines.legal.",
   url: "https://quicklabs.ai",
-  email: "hello@quicklabs.ai",
+  email: "info@quicklabs.ai",
   logo: {
     image: "/quicklabslogo.jpg",
     alt: "QuickLabs — Software Development",
