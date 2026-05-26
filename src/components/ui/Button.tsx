@@ -45,13 +45,16 @@ export function Button(props: AsLink | AsButton) {
         </a>
       );
     }
-    const isExternal = props.external ?? /^https?:\/\//.test(props.href);
-    if (isExternal) {
+    const isHttp = /^https?:\/\//.test(props.href);
+    if (isHttp) {
+      // Default external https → new tab; pass external={false} for same tab.
+      const newTab = props.external ?? true;
       return (
         <a
           href={props.href}
-          target="_blank"
-          rel="noreferrer noopener"
+          {...(newTab
+            ? { target: "_blank", rel: "noreferrer noopener" }
+            : {})}
           className={cls}
         >
           {children}

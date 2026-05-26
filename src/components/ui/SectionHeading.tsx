@@ -38,7 +38,12 @@ export function SectionHeading({
         {title}
       </h2>
       {body && (
-        <p className="mt-5 text-pretty text-base sm:text-lg text-fg-muted leading-relaxed max-w-2xl [&]:[text-wrap:pretty]">
+        <p
+          className={cn(
+            "mt-5 text-pretty text-base sm:text-lg text-fg-muted leading-relaxed max-w-2xl [&]:[text-wrap:pretty]",
+            isCenter && "mx-auto"
+          )}
+        >
           {body}
         </p>
       )}

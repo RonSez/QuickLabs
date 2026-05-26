@@ -6,7 +6,6 @@ import {
   carePlanItems,
 } from "@/content/webdesign";
 import { site } from "@/content/site";
-import { copy } from "@/content/copy";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
@@ -24,8 +23,7 @@ export const metadata: Metadata = {
   },
 };
 
-const mail = `${copy.contact.cta.hrefBase}${site.email}`;
-const composeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+const composeUrl = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(
   site.email
 )}`;
 
@@ -230,12 +228,12 @@ export default function WebDesignPage() {
 
           <Reveal delay={0.15}>
             <div className="mt-12 flex flex-col items-center gap-4">
-              <Button href={composeUrl} variant="primary" external>
+              <Button href={composeUrl} variant="primary" external={false}>
                 <Icon name="Mail" size={16} />
                 Email us
               </Button>
               <a
-                href={mail}
+                href={composeUrl}
                 className="font-mono text-sm text-fg-muted tracking-[0.06em] hover:text-fg transition-colors"
               >
                 {site.email}

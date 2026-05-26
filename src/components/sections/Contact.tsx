@@ -7,8 +7,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Icon } from "@/components/ui/Icon";
 
 export function Contact() {
-  const mail = `${copy.contact.cta.hrefBase}${site.email}`;
-  const composeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+  const composeUrl = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(
     site.email
   )}`;
   return (
@@ -37,12 +36,12 @@ export function Contact() {
 
         <Reveal delay={0.15}>
           <div className="mt-12 flex flex-col items-center gap-4">
-            <Button href={composeUrl} variant="primary" external>
+            <Button href={composeUrl} variant="primary" external={false}>
               <Icon name="Mail" size={16} />
               {copy.contact.cta.label}
             </Button>
             <a
-              href={mail}
+              href={composeUrl}
               className="font-mono text-sm text-fg-muted tracking-[0.06em] hover:text-fg transition-colors"
             >
               {site.email}
