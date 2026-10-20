@@ -1,3 +1,17 @@
+export const webOffer = {
+  label: "Web design",
+  title: "Websites, looked after.",
+  body: "We design and build custom sites for businesses, then host and maintain them for one monthly fee.",
+  ledger: [
+    { item: "Design & build", term: "Once" },
+    { item: "Hosting", term: "Monthly" },
+    { item: "Maintenance", term: "Monthly" },
+    { item: "Content changes", term: "Monthly" },
+    { item: "Support & monitoring", term: "Monthly" },
+  ],
+  link: { label: "See the web design offer", href: "/web-design" },
+} as const;
+
 export type WebDesignService = {
   title: string;
   body: string;
