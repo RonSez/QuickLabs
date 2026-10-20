@@ -12,6 +12,22 @@ test("hero wordmark is the h1 and is fully visible after load", async ({ page })
   await expect(page.locator("canvas")).toHaveCount(0);
 });
 
+for (const path of ["/", "/web-design"]) {
+  test(`${path}: hero reveal does not wait for app JavaScript (LCP)`, async ({ page }) => {
+    await page.route("**/_next/static/chunks/**/*.js", (r) => r.abort());
+    await page.goto(path);
+    await page.waitForTimeout(1500);
+    const state = await page.locator("main [data-anim]").first().evaluate((gate) => ({
+      opacity: getComputedStyle(gate).opacity,
+      parts: Array.from(gate.querySelectorAll("[data-mask-part]")).map(
+        (p) => new DOMMatrix(getComputedStyle(p).transform).m42,
+      ),
+    }));
+    expect(state.opacity).toBe("1");
+    for (const y of state.parts) expect(Math.abs(y)).toBeLessThan(1);
+  });
+}
+
 test("reduced motion: no motion-ok class and hero visible immediately", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
@@ -27,6 +43,20 @@ test.describe("without JavaScript", () => {
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("QuickLabs/studio");
   });
 });
+
+for (const path of ["/", "/web-design"]) {
+  test(`phone landscape ${path}: headline and CTA both fit in the first screen`, async ({ page }, info) => {
+    test.skip(info.project.name !== "mobile");
+    await page.setViewportSize({ width: 844, height: 390 });
+    await page.goto(path);
+    await page.waitForTimeout(2000);
+    const cta = page.locator("main a", { hasText: "Start a project" }).filter({ visible: true }).first();
+    const box = await cta.boundingBox();
+    expect(box!.y + box!.height).toBeLessThanOrEqual(390);
+    const h1 = await page.getByRole("heading", { level: 1 }).boundingBox();
+    expect(h1!.y).toBeGreaterThanOrEqual(0);
+  });
+}
 
 test("mobile: primary CTA is a full-width tap target", async ({ page }, info) => {
   test.skip(info.project.name !== "mobile");
