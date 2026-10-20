@@ -1,47 +1,23 @@
 import { copy } from "@/content/copy";
 import { services } from "@/content/services";
-import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Icon } from "@/components/ui/Icon";
-import { Reveal } from "@/components/motion/Reveal";
 
 export function Services() {
   return (
-    <section
-      id="services"
-      className="relative py-24 sm:py-32 border-t border-border"
-    >
-      <Container>
-        <Reveal>
-          <SectionHeading
-            eyebrow={copy.services.eyebrow}
-            title={copy.services.title}
-            body={copy.services.body}
-          />
-        </Reveal>
-
-        <ul className="mt-16 grid gap-px bg-border sm:grid-cols-2 border border-border rounded-2xl overflow-hidden">
-          {services.map((s, i) => (
-            <Reveal key={s.title} delay={i * 0.06}>
-              <li className="group relative bg-bg p-7 sm:p-8 h-full transition-colors hover:bg-bg-elev">
-                <div className="flex items-start gap-5">
-                  <div className="shrink-0 grid place-items-center w-10 h-10 rounded-lg bg-bg-elev border border-border-strong text-accent">
-                    <Icon name={s.icon} size={18} />
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="text-lg font-semibold tracking-tight">
-                      {s.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-fg-muted leading-relaxed">
-                      {s.body}
-                    </p>
-                  </div>
-                </div>
-              </li>
-            </Reveal>
-          ))}
-        </ul>
-      </Container>
+    <section id="services" className="px-gutter py-24 lg:py-36">
+      <h2 className="type-label mb-8 text-ash lg:mb-12">{copy.services.label}</h2>
+      <ul className="svc-list border-b border-line">
+        {services.map((s) => (
+          <li
+            key={s.title}
+            className="svc-row group grid gap-2 border-t border-line py-6 lg:grid-cols-[1fr_minmax(0,24rem)] lg:items-baseline lg:gap-10 lg:py-8"
+          >
+            <h3 className="text-[clamp(2rem,1rem+4.5vw,5.5rem)] font-semibold leading-[0.95] tracking-[-0.045em] transition-transform duration-300 ease-[var(--ease-out)] lg:group-hover:translate-x-3">
+              {s.title}
+            </h3>
+            <p className="type-body text-ash lg:text-right">{s.body}</p>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

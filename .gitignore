@@ -42,3 +42,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# brainstorming companion
+.superpowers/
+
+# playwright / lighthouse
+/test-results/
+/playwright-report/
+/lh-*.json
