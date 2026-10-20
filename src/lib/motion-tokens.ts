@@ -2,7 +2,8 @@ export const EASE = { out: "power3.out", inOut: "power4.inOut" } as const;
 export const DUR = { micro: 0.2, reveal: 0.8, load: 1 } as const;
 
 export const MOTION_CONDITIONS = {
-  pin: "(min-width: 1024px) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
+  // Pinned scenes need room for a full scene below the fixed header.
+  pin: "(min-width: 1024px) and (min-height: 700px) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
   play: "(prefers-reduced-motion: no-preference)",
 } as const;
 

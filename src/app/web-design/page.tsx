@@ -13,7 +13,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${webDesignPage.meta.title} · ${site.name}`,
     description: webDesignPage.meta.description,
+    url: `${site.url}/web-design`,
+    siteName: site.name,
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${webDesignPage.meta.title} · ${site.name}`,
+    description: webDesignPage.meta.description,
   },
 };
 

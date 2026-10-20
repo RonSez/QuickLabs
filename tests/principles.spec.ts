@@ -16,7 +16,7 @@ test("line masks finish fully revealed after scrolling in", async ({ page }) => 
   await page.waitForTimeout(1500);
   const offset = await last.evaluate((h) => {
     const line = h.querySelector(".mask-line");
-    if (!line) return 0; // reduced motion / not split
+    if (!line) return Infinity; // motion is on here, so the statement must be split
     return Math.abs(line.getBoundingClientRect().top - line.parentElement!.getBoundingClientRect().top);
   });
   expect(offset).toBeLessThan(2);

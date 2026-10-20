@@ -1,7 +1,16 @@
 import { test, expect } from "@playwright/test";
 
+/** "1" when every hero mask part sits at rest and every fade is fully opaque. */
 const heroOpacity = (page: import("@playwright/test").Page) =>
-  page.locator("#top [data-anim]").evaluate((el) => getComputedStyle(el).opacity);
+  page.locator("#top [data-anim]").evaluate((gate) => {
+    const partsAtRest = Array.from(gate.querySelectorAll("[data-mask-part]")).every(
+      (p) => Math.abs(new DOMMatrix(getComputedStyle(p).transform).m42) < 1,
+    );
+    const fadesOpaque = Array.from(gate.querySelectorAll("[data-load-fade]")).every(
+      (f) => getComputedStyle(f).opacity === "1",
+    );
+    return partsAtRest && fadesOpaque ? "1" : "0";
+  });
 
 test("hero wordmark is the h1 and is fully visible after load", async ({ page }) => {
   await page.goto("/");

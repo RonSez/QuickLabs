@@ -39,6 +39,8 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const scrolledRef = useRef(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -55,11 +57,23 @@ export function Header() {
 
   useEffect(() => {
     if (!open) return;
+    // Lock both: `html { overflow-x: clip }` stops body overflow from reaching the viewport.
+    const root = document.documentElement;
     const prev = document.body.style.overflow;
+    const prevRoot = root.style.overflow;
     document.body.style.overflow = "hidden";
+    root.style.overflow = "hidden";
     getLenis()?.stop();
+    // The page behind the menu leaves the tab order and the accessibility tree.
+    const main = document.getElementById("main");
+    main?.setAttribute("inert", "");
+    // Wait a frame so the menu is visible before it can take focus.
+    const raf = requestAnimationFrame(() => menuRef.current?.querySelector<HTMLElement>("a")?.focus());
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") {
+        setOpen(false);
+        toggleRef.current?.focus();
+      }
     };
     const mq = window.matchMedia("(min-width: 768px)");
     const onMq = () => {
@@ -68,7 +82,10 @@ export function Header() {
     window.addEventListener("keydown", onKey);
     mq.addEventListener("change", onMq);
     return () => {
+      cancelAnimationFrame(raf);
       document.body.style.overflow = prev;
+      root.style.overflow = prevRoot;
+      main?.removeAttribute("inert");
       getLenis()?.start();
       window.removeEventListener("keydown", onKey);
       mq.removeEventListener("change", onMq);
@@ -115,6 +132,7 @@ export function Header() {
           </nav>
 
           <button
+            ref={toggleRef}
             type="button"
             className="relative -mr-3 inline-flex size-11 items-center justify-center md:hidden"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -142,13 +160,14 @@ export function Header() {
 
       <div
         id="mobile-menu"
+        ref={menuRef}
         role="dialog"
-        aria-modal="true"
         aria-label="Menu"
         data-lenis-prevent
         className={cn(
-          "fixed inset-0 z-40 flex flex-col justify-between bg-ink px-gutter pt-[calc(5rem+env(safe-area-inset-top))] pb-[max(1.5rem,env(safe-area-inset-bottom))] transition-[opacity,visibility] duration-300 md:hidden",
-          open ? "visible opacity-100" : "invisible opacity-0",
+          "fixed inset-0 z-40 flex flex-col justify-between bg-ink px-gutter pt-[calc(5rem+env(safe-area-inset-top))] pb-[max(1.5rem,env(safe-area-inset-bottom))] duration-300 md:hidden",
+          // Visibility snaps on when opening (so focus can move in) and fades out when closing.
+          open ? "visible opacity-100 transition-opacity" : "invisible opacity-0 transition-[opacity,visibility]",
         )}
       >
         <ul className="flex flex-col">

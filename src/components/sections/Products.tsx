@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { copy } from "@/content/copy";
 import { products, type Product } from "@/content/products";
 import { ensureGsap } from "@/lib/gsap";
+import { getLenis } from "@/lib/lenis";
 import { pinTimeline, playOnEnter } from "@/lib/scene";
 import { useScene } from "@/components/motion/useMotion";
 import { TypewriterNote } from "@/components/visuals/TypewriterNote";
@@ -68,12 +69,31 @@ export function Products() {
       chapters.forEach((chapter, i) => {
         const screen = chapter.querySelector<HTMLElement>("[data-screen]")!;
         if (i > 0) {
-          gsap.set(chapter, { autoAlpha: 0 });
-          tl.to(chapters[i - 1], { autoAlpha: 0, duration: 0.3 }).to(chapter, { autoAlpha: 1, duration: 0.3 }, "<");
+          // Opacity only (not visibility), so every chapter stays in the keyboard and
+          // screen-reader order; pointer events follow whichever chapter is shown.
+          gsap.set(chapter, { opacity: 0, pointerEvents: "none" });
+          tl.to(chapters[i - 1], { opacity: 0, duration: 0.3 })
+            .to(chapter, { opacity: 1, duration: 0.3 }, "<")
+            .set(chapters[i - 1], { pointerEvents: "none" })
+            .set(chapter, { pointerEvents: "auto" }, "<");
         }
+        tl.addLabel(`chapter-${i}`);
         tl.add(buildFor(products[i])(screen).paused(false));
       });
+
+      // Focusing into a hidden chapter scrolls the pin to where that chapter is shown.
+      const onFocusIn = (e: FocusEvent) => {
+        const i = chapters.findIndex((c) => c.contains(e.target as Node));
+        const st = tl.scrollTrigger;
+        if (i < 0 || !st) return;
+        const y = st.start + (st.end - st.start) * (tl.labels[`chapter-${i}`] / tl.duration());
+        const lenis = getLenis();
+        if (lenis) lenis.scrollTo(y, { immediate: true, force: true });
+        else window.scrollTo(0, y);
+      };
+      root.addEventListener("focusin", onFocusIn);
       return () => {
+        root.removeEventListener("focusin", onFocusIn);
         delete root.dataset.pinned;
       };
     },
