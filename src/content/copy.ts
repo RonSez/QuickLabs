@@ -10,10 +10,7 @@ export const copy = {
     label: "Products",
     visit: "Visit",
   },
-  approach: {
-    eyebrow: "How we work",
-    title: "Three principles that show up in everything we ship.",
-  },
+  principles: { label: "How we work" },
   contact: {
     eyebrow: "Contact",
     title: "Tell us what you're building.",
