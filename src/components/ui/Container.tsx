@@ -1,20 +1,5 @@
 import { cn } from "@/lib/cn";
 
-export function Container({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div
-      className={cn(
-        "mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-12",
-        className
-      )}
-    >
-      {children}
-    </div>
-  );
+export function Container({ children, className }: { children: React.ReactNode; className?: string }) {
+  return <div className={cn("mx-auto w-full max-w-[90rem] px-gutter", className)}>{children}</div>;
 }

@@ -1,71 +1,45 @@
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 
-type ButtonVariant = "primary" | "secondary" | "ghost";
+type ButtonVariant = "primary" | "link";
 
 type CommonProps = {
-  variant?: ButtonVariant;
+  /** "secondary" | "ghost" are legacy aliases for "link"; removed in Task 13. */
+  variant?: ButtonVariant | "secondary" | "ghost";
   className?: string;
   children: React.ReactNode;
 };
 
-type AsLink = CommonProps & {
-  href: string;
-  external?: boolean;
-};
+type AsLink = CommonProps & { href: string; external?: boolean };
+type AsButton = CommonProps & { href?: never; type?: "button" | "submit"; onClick?: () => void };
 
-type AsButton = CommonProps & {
-  href?: never;
-  type?: "button" | "submit";
-  onClick?: () => void;
-};
-
-const baseClass =
-  "inline-flex items-center justify-center gap-2 rounded-full px-5 h-11 text-sm font-medium tracking-tight transition-[transform,background-color,border-color,color] duration-200 ease-out will-change-transform active:scale-[0.98]";
+const base =
+  "inline-flex items-center gap-2 font-semibold tracking-[-0.01em] touch-manipulation transition-[background-color,color,transform] duration-200 ease-[var(--ease-out)] active:scale-[0.98]";
 
 const variantClass: Record<ButtonVariant, string> = {
-  primary:
-    "bg-fg text-bg hover:bg-fg/90 shadow-[0_0_0_1px_rgba(255,255,255,0.06),0_8px_24px_-12px_rgba(45,139,255,0.6)]",
-  secondary:
-    "bg-bg-elev text-fg border border-border-strong hover:border-fg/40 hover:bg-bg-elev-2",
-  ghost:
-    "text-fg/80 hover:text-fg hover:bg-fg/5",
+  primary: "min-h-12 justify-between rounded-[2px] bg-bone px-5 text-[0.9375rem] text-ink hover:bg-bone/90",
+  link: "min-h-11 text-[0.9375rem] text-bone link-draw",
 };
 
 export function Button(props: AsLink | AsButton) {
   const { variant = "primary", className, children } = props;
-  const cls = cn(baseClass, variantClass[variant], className);
+  const v: ButtonVariant = variant === "primary" ? "primary" : "link";
+  const cls = cn(base, variantClass[v], className);
 
   if ("href" in props && props.href) {
-    const isProtocolLink = /^(mailto:|tel:|sms:)/.test(props.href);
-    if (isProtocolLink) {
-      return (
-        <a href={props.href} className={cls}>
-          {children}
-        </a>
-      );
+    const { href } = props;
+    if (/^(mailto:|tel:|#)/.test(href)) {
+      return <a href={href} className={cls}>{children}</a>;
     }
-    const isHttp = /^https?:\/\//.test(props.href);
-    if (isHttp) {
-      // Default external https → new tab; pass external={false} for same tab.
+    if (/^https?:\/\//.test(href)) {
       const newTab = props.external ?? true;
       return (
-        <a
-          href={props.href}
-          {...(newTab
-            ? { target: "_blank", rel: "noreferrer noopener" }
-            : {})}
-          className={cls}
-        >
+        <a href={href} className={cls} {...(newTab ? { target: "_blank", rel: "noreferrer noopener" } : {})}>
           {children}
         </a>
       );
     }
-    return (
-      <Link href={props.href} className={cls}>
-        {children}
-      </Link>
-    );
+    return <Link href={href} className={cls}>{children}</Link>;
   }
 
   const { type = "button", onClick } = props as AsButton;

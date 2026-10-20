@@ -61,7 +61,7 @@ export function Header() {
             className="shrink-0"
             onClick={() => setMenuOpen(false)}
           >
-            <Logo size="sm" priority />
+            <Logo />
           </Link>
 
           <nav className="hidden md:flex items-center gap-8" aria-label="Primary">

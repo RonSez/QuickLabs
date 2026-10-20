@@ -10,7 +10,7 @@ export function Footer() {
       <Container className="py-16">
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-2 max-w-md">
-            <Logo size="lg" />
+            <Logo className="text-[1.75rem]" />
             <p className="mt-5 text-sm text-fg-muted leading-relaxed">
               {site.description}
             </p>
