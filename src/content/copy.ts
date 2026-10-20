@@ -1,10 +1,7 @@
 export const copy = {
   hero: {
-    eyebrow: "[ Software studio · AI products ]",
-    headline: "We build software for clients, and ship our own AI products.",
-    sub: "QuickLabs is a development studio with two live products in healthcare and legal. We bring the same regulated-industry rigor to every engagement.",
-    primaryCta: { label: "See our products", href: "#products" },
-    secondaryCta: { label: "Work with us", href: "#contact" },
+    line: "We design websites and build AI products for healthcare, legal and finance. We also run two products of our own.",
+    cta: { label: "Start a project", href: "#contact" },
   },
   about: {
     eyebrow: "About",

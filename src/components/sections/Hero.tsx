@@ -1,115 +1,62 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { motion } from "motion/react";
+import { useRef } from "react";
 import { copy } from "@/content/copy";
-import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
-import { SplitText } from "@/components/motion/SplitText";
-import { easeOut } from "@/lib/motion";
+import { useLoadMask } from "@/components/motion/useMotion";
 
-const HeroCanvas = dynamic(
-  () => import("@/components/three/HeroCanvas").then((m) => m.HeroCanvas),
-  {
-    ssr: false,
-    loading: () => <HeroFallback />,
-  }
-);
-
-function HeroFallback() {
+function MaskPart({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <div
-      aria-hidden
-      className="absolute inset-0 -z-10"
-      style={{
-        background:
-          "radial-gradient(60% 50% at 50% 40%, var(--accent-glow) 0%, transparent 70%), radial-gradient(40% 35% at 70% 70%, rgba(96,165,250,0.18) 0%, transparent 70%)",
-      }}
-    />
+    <span className={`inline-block overflow-hidden pb-[0.06em] align-bottom ${className ?? ""}`}>
+      <span data-mask-part className="inline-block">
+        {children}
+      </span>
+    </span>
   );
 }
 
 export function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  useLoadMask(ref);
+
   return (
     <section
       id="top"
-      className="relative isolate overflow-hidden noise-bg pt-32 sm:pt-36 pb-24 sm:pb-32 min-h-[100svh] flex items-center"
+      ref={ref}
+      className="relative flex min-h-svh flex-col px-gutter pt-24 pb-[max(1.5rem,env(safe-area-inset-bottom))] lg:pt-28"
     >
-      <HeroCanvas />
-      <div
-        aria-hidden
-        className="absolute inset-x-0 bottom-0 h-32 -z-10 bg-gradient-to-b from-transparent to-bg"
-      />
+      <div data-anim="pending" className="flex flex-1 flex-col">
+        <div className="flex flex-1 flex-col justify-end gap-8 lg:justify-between">
+          <p
+            data-load-fade
+            className="type-body order-2 max-w-[24rem] text-bone/80 lg:order-1 lg:self-end lg:text-right"
+          >
+            {copy.hero.line}
+          </p>
+          <h1 className="order-1 font-bold leading-[0.8] tracking-[-0.065em] lg:order-2 lg:-ml-[0.04em] lg:whitespace-nowrap lg:text-[14.5vw]">
+            <MaskPart className="block text-[28vw] lg:inline-block lg:text-[length:inherit]">Quick</MaskPart>
+            <MaskPart className="block text-[28vw] lg:inline-block lg:text-[length:inherit]">Labs</MaskPart>
+            <MaskPart className="mt-2 block text-[13vw] font-light text-bone/30 lg:mt-0 lg:inline-block lg:text-[length:inherit]">
+              /studio
+            </MaskPart>
+          </h1>
+        </div>
 
-      <Container className="relative">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: easeOut }}
-          className="font-mono text-[11px] uppercase tracking-[0.24em] text-fg-muted mb-8"
-        >
-          {copy.hero.eyebrow}
-        </motion.div>
-
-        <SplitText
-          text={copy.hero.headline}
-          className="text-balance text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.05] max-w-5xl"
-          as="h1"
-        />
-
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: easeOut, delay: 0.5 }}
-          className="mt-7 max-w-2xl text-base sm:text-lg text-fg-muted leading-relaxed"
-        >
-          {copy.hero.sub}
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: easeOut, delay: 0.7 }}
-          className="mt-10 flex flex-wrap items-center gap-3"
-        >
-          <Button href={copy.hero.primaryCta.href} variant="primary">
-            {copy.hero.primaryCta.label}
-            <ArrowRight />
-          </Button>
-          <Button href={copy.hero.secondaryCta.href} variant="secondary">
-            {copy.hero.secondaryCta.label}
-          </Button>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
-          className="mt-12 sm:mt-20 flex items-center gap-4 font-mono text-[10px] uppercase tracking-[0.24em] text-fg-muted"
-        >
-          <span className="size-1.5 rounded-full bg-accent animate-pulse" />
-          Two products live · Engineering for hire
-        </motion.div>
-      </Container>
+        <div data-load-fade className="mt-8 flex items-center justify-between gap-6 border-t border-line pt-4">
+          <span className="type-label hidden text-ash lg:inline">Scroll</span>
+          <a
+            href={copy.hero.cta.href}
+            className="flex min-h-12 w-full items-center justify-between rounded-[2px] bg-bone px-5 text-[0.9375rem] font-semibold text-ink lg:hidden"
+          >
+            {copy.hero.cta.label} <span aria-hidden>→</span>
+          </a>
+          <a
+            href={copy.hero.cta.href}
+            className="link-draw hidden min-h-11 items-center gap-2 text-[0.9375rem] font-semibold lg:inline-flex"
+          >
+            {copy.hero.cta.label} <span aria-hidden>→</span>
+          </a>
+        </div>
+      </div>
     </section>
-  );
-}
-
-function ArrowRight() {
-  return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M5 12h14" />
-      <path d="m12 5 7 7-7 7" />
-    </svg>
   );
 }

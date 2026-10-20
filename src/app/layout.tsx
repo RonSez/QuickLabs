@@ -5,6 +5,7 @@ import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { site } from "@/content/site";
+import { MOTION_BOOT } from "@/lib/motion-tokens";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -40,11 +41,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${bricolage.variable} h-full`}>
+    <html lang="en" className={`${bricolage.variable} h-full`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: MOTION_BOOT }} />
+      </head>
       <body className="grain min-h-full bg-ink text-bone">
         <SmoothScroll>
           <Header />
-          <main className="relative">{children}</main>
+          <main id="main" className="relative">{children}</main>
           <Footer />
         </SmoothScroll>
       </body>
