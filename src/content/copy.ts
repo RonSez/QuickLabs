@@ -12,10 +12,8 @@ export const copy = {
       "We take on engagements that demand domain depth. Healthcare, legal, fintech, and other verticals where the stakes — and the regulations — are real.",
   },
   products: {
-    eyebrow: "Our products",
-    title: "Two AI products. Built, shipped, supported.",
-    body:
-      "We don't only consult. We're operators. Each of these products started as a thesis about a workflow that AI could actually own end-to-end — and is now in daily use by professionals who can't tolerate guesswork.",
+    label: "Products",
+    visit: "Visit",
   },
   approach: {
     eyebrow: "How we work",
