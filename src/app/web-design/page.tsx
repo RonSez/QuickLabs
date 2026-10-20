@@ -6,6 +6,8 @@ import {
   carePlanItems,
 } from "@/content/webdesign";
 import { site } from "@/content/site";
+import { copy } from "@/content/copy";
+import { Closer } from "@/components/sections/Closer";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
@@ -22,10 +24,6 @@ export const metadata: Metadata = {
     type: "website",
   },
 };
-
-const composeUrl = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(
-  site.email
-)}`;
 
 export default function WebDesignPage() {
   return (
@@ -197,51 +195,7 @@ export default function WebDesignPage() {
         </Container>
       </section>
 
-      {/* Contact */}
-      <section
-        id="contact"
-        className="relative py-28 sm:py-36 border-t border-border overflow-hidden"
-      >
-        <div
-          aria-hidden
-          className="absolute inset-0 -z-10 opacity-[0.5]"
-          style={{
-            background:
-              "radial-gradient(50% 60% at 50% 100%, var(--accent-glow) 0%, transparent 70%)",
-          }}
-        />
-
-        <Container>
-          <Reveal>
-            <div className="max-w-2xl mx-auto text-center">
-              <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-muted mb-5">
-                Contact
-              </div>
-              <h2 className="text-balance text-3xl sm:text-4xl md:text-[2.75rem] font-semibold tracking-tight leading-[1.1]">
-                {webDesignPageCopy.ctaTitle}
-              </h2>
-              <p className="mt-5 text-base sm:text-lg text-fg-muted leading-relaxed">
-                {webDesignPageCopy.ctaBody}
-              </p>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.15}>
-            <div className="mt-12 flex flex-col items-center gap-4">
-              <Button href={composeUrl} variant="primary" external={false}>
-                <Icon name="Mail" size={16} />
-                Email us
-              </Button>
-              <a
-                href={composeUrl}
-                className="font-mono text-sm text-fg-muted tracking-[0.06em] hover:text-fg transition-colors"
-              >
-                {site.email}
-              </a>
-            </div>
-          </Reveal>
-        </Container>
-      </section>
+      <Closer intro={copy.closer.webDesignIntro} />
     </>
   );
 }

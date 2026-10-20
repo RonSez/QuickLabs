@@ -11,11 +11,10 @@ export const copy = {
     visit: "Visit",
   },
   principles: { label: "How we work" },
-  contact: {
-    eyebrow: "Contact",
-    title: "Tell us what you're building.",
-    body:
-      "Send us a note. We reply within one working day with a real human, not a form receipt.",
-    cta: { label: "Email us", hrefBase: "mailto:" },
+  closer: {
+    label: "Contact",
+    homeIntro: "Tell us what you're building. We reply within one working day.",
+    webDesignIntro: "Tell us about your business and the site you have in mind. We reply within one working day.",
+    button: "Email us",
   },
 } as const;

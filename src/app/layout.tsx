@@ -3,7 +3,6 @@ import { Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { site } from "@/content/site";
 import { MOTION_BOOT } from "@/lib/motion-tokens";
 
@@ -49,7 +48,6 @@ export default function RootLayout({
         <SmoothScroll>
           <Header />
           <main id="main" className="relative">{children}</main>
-          <Footer />
         </SmoothScroll>
       </body>
     </html>
