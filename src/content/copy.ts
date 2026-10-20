@@ -3,16 +3,8 @@ export const copy = {
     line: "We design websites and build AI products for healthcare, legal and finance. We also run two products of our own.",
     cta: { label: "Start a project", href: "#contact" },
   },
-  about: {
-    eyebrow: "About",
-    title: "A studio that builds — and ships its own.",
-    body:
-      "Most agencies stop at delivery. We don't. QuickLabs operates two of its own products in regulated industries — and brings the same rigor to client work, whether that's an AI engagement or a high-converting website for a business that wants a premium online presence.",
-    stats: [
-      { value: "AI-native", label: "from research to deployment" },
-      { value: "HIPAA · SOC 2 · ISO 27001", label: "compliance-aware by default" },
-    ],
-  },
+  manifesto:
+    "We build software for clinics, law firms and the companies that serve them. We also run two products of our own, rounds.health and redlines.legal, so we know what it takes to keep software working long after launch. Client projects get the same care.",
   services: {
     eyebrow: "What we do",
     title: "Engineering, design, and AI — for the work that has to be right.",
