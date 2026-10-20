@@ -5,12 +5,7 @@ export const copy = {
   },
   manifesto:
     "We build software for clinics, law firms and the companies that serve them. We also run two products of our own, rounds.health and redlines.legal, so we know what it takes to keep software working long after launch. Client projects get the same care.",
-  services: {
-    eyebrow: "What we do",
-    title: "Engineering, design, and AI — for the work that has to be right.",
-    body:
-      "We take on engagements that demand domain depth. Healthcare, legal, fintech, and other verticals where the stakes — and the regulations — are real.",
-  },
+  services: { label: "Services" },
   products: {
     label: "Products",
     visit: "Visit",
