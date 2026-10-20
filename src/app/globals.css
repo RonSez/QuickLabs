@@ -13,23 +13,6 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.83, 0, 0.17, 1);
   --gutter: clamp(1.25rem, 4vw, 3rem);
-
-  /* LEGACY (old sections only) — removed in Task 13 */
-  --bg: var(--ink);
-  --bg-elev: var(--ink-2);
-  --bg-elev-2: var(--ink-2);
-  --fg: var(--bone);
-  --fg-muted: var(--ash);
-  --fg-dim: var(--ash);
-  --border: var(--line);
-  --border-strong: var(--line-strong);
-  --accent: var(--bone);
-  --accent-2: var(--bone);
-  --accent-glow: transparent;
-  --health: var(--rounds);
-  --health-2: var(--rounds);
-  --legal: var(--redlines);
-  --legal-2: var(--redlines);
 }
 
 @theme inline {
@@ -43,33 +26,6 @@
   --color-redlines: var(--redlines);
 
   --font-sans: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
-
-  /* LEGACY (old sections only) — removed in Task 13 */
-  --color-bg: var(--ink);
-  --color-bg-elev: var(--ink-2);
-  --color-bg-elev-2: var(--ink-2);
-  --color-fg: var(--bone);
-  --color-fg-muted: var(--ash);
-  --color-fg-dim: var(--ash);
-  --color-border: var(--line);
-  --color-border-strong: var(--line-strong);
-  --color-accent: var(--bone);
-  --color-accent-2: var(--bone);
-  --color-health: var(--rounds);
-  --color-health-2: var(--rounds);
-  --color-legal: var(--redlines);
-  --color-legal-2: var(--redlines);
-  --text-xs: 0.9375rem;
-  --text-sm: 1.09375rem;
-  --text-base: 1.25rem;
-  --text-lg: 1.40625rem;
-  --text-xl: 1.5625rem;
-  --text-2xl: 1.875rem;
-  --text-3xl: 2.34375rem;
-  --text-4xl: 2.8125rem;
-  --text-5xl: 3.75rem;
-  --text-6xl: 4.6875rem;
-  --text-7xl: 5.625rem;
 }
 
 @utility px-gutter {
