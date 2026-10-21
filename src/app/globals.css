@@ -106,7 +106,37 @@ body {
   border-radius: 1px;
 }
 
-/* Static film grain — the only texture on the site */
+/* Hero grid: faint lines that fade at the edges; a second, brighter grid shows only under the cursor */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  --cell: clamp(56px, 5vw, 88px);
+  --grid: linear-gradient(to right, currentColor 1px, transparent 1px),
+    linear-gradient(to bottom, currentColor 1px, transparent 1px);
+  color: rgb(236 232 223 / 0.045);
+  background-image: var(--grid);
+  background-size: var(--cell) var(--cell);
+  background-position: 50% 50%;
+  mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, #000 35%, transparent 85%);
+}
+.hero-grid::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  color: rgb(236 232 223 / 0.2);
+  background-image: var(--grid);
+  background-size: var(--cell) var(--cell);
+  background-position: 50% 50%;
+  mask-image: radial-gradient(circle 240px at var(--mx, 50%) var(--my, 50%), #000, transparent);
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-out);
+}
+.hero-grid[data-active]::after {
+  opacity: 1;
+}
+
+/* Static film grain */
 .grain::after {
   content: "";
   position: fixed;

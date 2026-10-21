@@ -1,4 +1,5 @@
 import { copy } from "@/content/copy";
+import { HeroGrid } from "@/components/visuals/HeroGrid";
 
 const delay = (ms: number) => ({ ["--d" as string]: `${ms}ms` }) as React.CSSProperties;
 
@@ -18,7 +19,8 @@ export function Hero() {
       id="top"
       className="relative flex min-h-svh flex-col px-gutter pt-24 short:pt-20 pb-[max(1.5rem,env(safe-area-inset-bottom))] lg:pt-28"
     >
-      <div data-anim="load" className="flex flex-1 flex-col">
+      <HeroGrid />
+      <div data-anim="load" className="relative flex flex-1 flex-col">
         {/* --wm sizes the desktop wordmark by width and height, so it never outgrows a short or wide window. */}
         <div className="flex flex-1 flex-col justify-end gap-8 short:gap-4 lg:items-center lg:justify-center lg:gap-10 lg:[--wm:min(12.5vw,30svh)]">
           <h1 className="font-bold leading-[0.8] tracking-[-0.065em] lg:whitespace-nowrap lg:text-center lg:text-[length:var(--wm)] short:whitespace-nowrap short:text-[10vw]">
