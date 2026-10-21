@@ -125,3 +125,45 @@ test("desktop: wordmark is centred and the intro sits under it, unclipped", asyn
   expect(m.paraTop).toBeGreaterThan(m.h1Bottom);
   expect(Math.abs(m.paraCentre - m.centre)).toBeLessThan(24);
 });
+
+test("hero grid is decorative and only in the hero", async ({ page }) => {
+  await page.goto("/");
+  const grid = page.locator("[data-hero-grid]");
+  await expect(grid).toHaveCount(1);
+  await expect(page.locator("#top [data-hero-grid]")).toHaveCount(1);
+  await expect(grid).toHaveAttribute("aria-hidden", "true");
+  expect(await grid.evaluate((g) => getComputedStyle(g).pointerEvents)).toBe("none");
+  // The CTA is still clickable above the grid.
+  const cta = page.locator("#top a", { hasText: "Start a project" }).filter({ visible: true });
+  await expect(cta).toBeVisible();
+  const box = (await cta.boundingBox())!;
+  const hit = await page.evaluate(([x, y]) => document.elementFromPoint(x, y)?.closest("a")?.textContent, [box.x + box.width / 2, box.y + box.height / 2]);
+  expect(hit).toContain("Start a project");
+});
+
+test("desktop: the grid lights up under the cursor", async ({ page }, info) => {
+  test.skip(info.project.name !== "desktop");
+  await page.goto("/");
+  await page.waitForTimeout(500);
+  const grid = page.locator("[data-hero-grid]");
+  await page.mouse.move(300, 400);
+  await page.mouse.move(320, 420, { steps: 5 });
+  await page.waitForTimeout(800);
+  const s = await grid.evaluate((g) => ({
+    on: g.hasAttribute("data-active"),
+    mx: parseFloat(getComputedStyle(g).getPropertyValue("--mx")),
+    my: parseFloat(getComputedStyle(g).getPropertyValue("--my")),
+  }));
+  expect(s.on).toBe(true);
+  expect(Math.abs(s.mx - 320)).toBeLessThan(20);
+  expect(s.my).toBeGreaterThan(300);
+});
+
+test("reduced motion: the grid stays static", async ({ page }, info) => {
+  test.skip(info.project.name !== "desktop");
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await page.mouse.move(320, 420, { steps: 5 });
+  await page.waitForTimeout(500);
+  expect(await page.locator("[data-hero-grid]").evaluate((g) => g.hasAttribute("data-active"))).toBe(false);
+});
