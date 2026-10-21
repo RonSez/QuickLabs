@@ -4,7 +4,7 @@ const delay = (ms: number) => ({ ["--d" as string]: `${ms}ms` }) as React.CSSPro
 
 function MaskPart({ children, className, index }: { children: React.ReactNode; className?: string; index: number }) {
   return (
-    <span className={`inline-block overflow-hidden pb-[0.06em] align-bottom ${className ?? ""}`}>
+    <span className={`inline-block overflow-hidden pr-[0.1em] -mr-[0.1em] pb-[0.06em] align-bottom ${className ?? ""}`}>
       <span data-mask-part className="inline-block" style={delay(index * 80)}>
         {children}
       </span>
@@ -20,15 +20,8 @@ export function Hero() {
     >
       <div data-anim="load" className="flex flex-1 flex-col">
         {/* --wm sizes the desktop wordmark by width and height, so it never outgrows a short or wide window. */}
-        <div className="flex flex-1 flex-col justify-end gap-8 short:gap-4 lg:gap-10 lg:[--wm:min(12.5vw,30svh)]">
-          <p
-            data-load-fade
-            style={delay(450)}
-            className="type-body order-2 max-w-[24rem] text-pretty text-bone/80 lg:order-1 lg:ml-[calc(var(--wm)*4.2)] lg:max-w-[26rem]"
-          >
-            {copy.hero.line}
-          </p>
-          <h1 className="order-1 font-bold leading-[0.8] tracking-[-0.065em] lg:order-2 lg:-ml-[0.04em] lg:whitespace-nowrap lg:text-[length:var(--wm)] short:whitespace-nowrap short:text-[10vw]">
+        <div className="flex flex-1 flex-col justify-end gap-8 short:gap-4 lg:items-center lg:justify-center lg:gap-10 lg:[--wm:min(12.5vw,30svh)]">
+          <h1 className="font-bold leading-[0.8] tracking-[-0.065em] lg:whitespace-nowrap lg:text-center lg:text-[length:var(--wm)] short:whitespace-nowrap short:text-[10vw]">
             <MaskPart index={0} className="block text-[28vw] short:inline-block short:text-[length:inherit] lg:inline-block lg:text-[length:inherit]">
               Quick
             </MaskPart>
@@ -42,6 +35,13 @@ export function Hero() {
               /studio
             </MaskPart>
           </h1>
+          <p
+            data-load-fade
+            style={delay(450)}
+            className="type-body max-w-[24rem] text-pretty text-bone/80 lg:max-w-[30rem] lg:text-center"
+          >
+            {copy.hero.line}
+          </p>
         </div>
 
         <div
