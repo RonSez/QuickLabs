@@ -19,15 +19,16 @@ export function Hero() {
       className="relative flex min-h-svh flex-col px-gutter pt-24 short:pt-20 pb-[max(1.5rem,env(safe-area-inset-bottom))] lg:pt-28"
     >
       <div data-anim="load" className="flex flex-1 flex-col">
-        <div className="flex flex-1 flex-col justify-end gap-8 short:gap-4 lg:justify-between">
+        {/* --wm sizes the desktop wordmark by width and height, so it never outgrows a short or wide window. */}
+        <div className="flex flex-1 flex-col justify-end gap-8 short:gap-4 lg:gap-10 lg:[--wm:min(12.5vw,30svh)]">
           <p
             data-load-fade
             style={delay(450)}
-            className="type-body order-2 max-w-[24rem] text-bone/80 lg:order-1 lg:self-end lg:text-right"
+            className="type-body order-2 max-w-[24rem] text-pretty text-bone/80 lg:order-1 lg:ml-[calc(var(--wm)*4.2)] lg:max-w-[26rem]"
           >
             {copy.hero.line}
           </p>
-          <h1 className="order-1 font-bold leading-[0.8] tracking-[-0.065em] lg:order-2 lg:-ml-[0.04em] lg:whitespace-nowrap lg:text-[14.5vw] short:whitespace-nowrap short:text-[10vw]">
+          <h1 className="order-1 font-bold leading-[0.8] tracking-[-0.065em] lg:order-2 lg:-ml-[0.04em] lg:whitespace-nowrap lg:text-[length:var(--wm)] short:whitespace-nowrap short:text-[10vw]">
             <MaskPart index={0} className="block text-[28vw] short:inline-block short:text-[length:inherit] lg:inline-block lg:text-[length:inherit]">
               Quick
             </MaskPart>
