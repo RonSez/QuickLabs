@@ -91,3 +91,37 @@ for (const [width, height] of [[1903, 870], [1280, 720], [2560, 1080]]) {
     expect(right).toBeLessThanOrEqual(width - gutter - 17);
   });
 }
+
+test("desktop: wordmark is centred and the intro sits under it, unclipped", async ({ page }, info) => {
+  test.skip(info.project.name !== "desktop");
+  await page.setViewportSize({ width: 1903, height: 870 });
+  await page.goto("/");
+  await page.evaluate(() => document.fonts.ready);
+  await page.waitForTimeout(1500);
+  const m = await page.locator("#top").evaluate((s) => {
+    const parts = Array.from(s.querySelectorAll("h1 [data-mask-part]"));
+    const boxes = parts.map((p) => p.getBoundingClientRect());
+    const last = parts[parts.length - 1];
+    // Negative tracking pulls the final glyph's advance in by 0.065em, so its ink overhangs the box.
+    const fs = parseFloat(getComputedStyle(last).fontSize);
+    const ink = { right: last.getBoundingClientRect().right + 0.065 * fs };
+    const clip = last.parentElement!.getBoundingClientRect();
+    const para = s.querySelector("p")!.getBoundingClientRect();
+    const left = Math.min(...boxes.map((b) => b.left));
+    const right = Math.max(...boxes.map((b) => b.right));
+    return {
+      leftGap: left,
+      rightGap: document.documentElement.clientWidth - right,
+      lastClipRight: clip.right,
+      lastInkRight: ink.right,
+      paraTop: para.top,
+      paraCentre: para.left + para.width / 2,
+      h1Bottom: s.querySelector("h1")!.getBoundingClientRect().bottom,
+      centre: document.documentElement.clientWidth / 2,
+    };
+  });
+  expect(Math.abs(m.leftGap - m.rightGap)).toBeLessThan(24);
+  expect(m.lastClipRight).toBeGreaterThanOrEqual(m.lastInkRight);
+  expect(m.paraTop).toBeGreaterThan(m.h1Bottom);
+  expect(Math.abs(m.paraCentre - m.centre)).toBeLessThan(24);
+});
