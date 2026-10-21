@@ -75,3 +75,19 @@ test("mobile: primary CTA is a full-width tap target", async ({ page }, info) =>
   expect(box!.height).toBeGreaterThanOrEqual(48);
   expect(box!.width).toBeGreaterThan(page.viewportSize()!.width * 0.8);
 });
+
+for (const [width, height] of [[1903, 870], [1280, 720], [2560, 1080]]) {
+  test(`desktop ${width}x${height}: wordmark fits inside the gutters`, async ({ page }, info) => {
+    test.skip(info.project.name !== "desktop");
+    await page.setViewportSize({ width, height });
+    await page.goto("/");
+    await page.evaluate(() => document.fonts.ready);
+    await page.waitForTimeout(1500);
+    const right = await page.locator("h1 [data-mask-part]").evaluateAll((parts) =>
+      Math.max(...parts.map((p) => p.getBoundingClientRect().right)),
+    );
+    const gutter = await page.locator("#top").evaluate((s) => parseFloat(getComputedStyle(s).paddingRight));
+    // Leave room for a classic 17px scrollbar: vw units include it, so headless runs hide the overflow.
+    expect(right).toBeLessThanOrEqual(width - gutter - 17);
+  });
+}
