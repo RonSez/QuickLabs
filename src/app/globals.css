@@ -193,6 +193,10 @@ html.motion-ok [data-load-fade] {
     opacity: 0.25;
   }
 }
+/* Touch: the row crossing the middle of the screen gets the hover look instead */
+.svc-list:has(.svc-row.is-active) .svc-row:not(.is-active) {
+  opacity: 0.25;
+}
 
 /* Receipt perforated bottom edge */
 .receipt::after {

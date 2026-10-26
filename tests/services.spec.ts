@@ -28,3 +28,20 @@ test("no icon boxes in services", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("#services svg")).toHaveCount(0);
 });
+
+test("touch: scrolling highlights the row in the middle of the screen", async ({ page }, info) => {
+  test.skip(info.project.name !== "mobile");
+  await page.goto("/");
+  await page.evaluate(() => document.fonts.ready);
+  const rows = page.locator("#services .svc-row");
+  for (const i of [0, 2]) {
+    await rows.nth(i).evaluate((el) => {
+      const r = el.getBoundingClientRect();
+      window.scrollTo(0, r.top + window.scrollY + r.height / 2 - window.innerHeight / 2);
+    });
+    await page.waitForTimeout(600);
+    await expect(rows.nth(i)).toHaveClass(/is-active/);
+    const other = await rows.nth(i === 0 ? 1 : 0).evaluate((el) => Number(getComputedStyle(el).opacity));
+    expect(other).toBeLessThan(0.5);
+  }
+});

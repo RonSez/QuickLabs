@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { ensureGsap } from "@/lib/gsap";
 import { DUR, EASE } from "@/lib/motion-tokens";
+import { replayOnScroll } from "@/lib/scene";
 import { useMotion } from "./useMotion";
 
 type Props = { as?: "ul" | "div"; className?: string; children: React.ReactNode };
@@ -13,14 +14,15 @@ export function RevealGroup({ as: Tag = "ul", className, children }: Props) {
   useMotion(ref, (root, c) => {
     if (!c.play) return;
     const { gsap } = ensureGsap();
-    gsap.from(root.children, {
+    const tween = gsap.from(root.children, {
       autoAlpha: 0,
       y: 24,
       duration: DUR.reveal,
       ease: EASE.out,
       stagger: 0.04,
-      scrollTrigger: { trigger: root, start: "top 85%", once: true },
+      paused: true,
     });
+    return replayOnScroll(root, tween);
   });
 
   const Comp = Tag as React.ElementType;
