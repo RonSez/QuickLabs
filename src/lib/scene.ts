@@ -18,13 +18,32 @@ export function pinTimeline(root: HTMLElement, viewports: number) {
   });
 }
 
-/** Builds a paused timeline and plays it once when `el` reaches `start`. */
+/**
+ * Plays a paused animation each time `el` scrolls down to `start`. It rewinds only once
+ * `el` is fully back below the viewport, so the reset is never seen and the next scroll
+ * down replays it. Returns a function that kills both triggers.
+ */
+export function replayOnScroll(el: Element, anim: gsap.core.Animation, start = "top 85%") {
+  const { ScrollTrigger } = ensureGsap();
+  const play = ScrollTrigger.create({
+    trigger: el,
+    start,
+    onEnter: () => {
+      if (anim.progress() === 0) anim.play();
+    },
+  });
+  const rewind = ScrollTrigger.create({ trigger: el, start: "top bottom", onLeaveBack: () => anim.pause(0) });
+  return () => {
+    play.kill();
+    rewind.kill();
+  };
+}
+
+/** Builds a paused timeline and plays it whenever `el` scrolls down to `start`. */
 export function playOnEnter(
   el: HTMLElement,
   build: (el: HTMLElement) => gsap.core.Timeline,
   start = "top 60%",
 ) {
-  const { ScrollTrigger } = ensureGsap();
-  const tl = build(el);
-  ScrollTrigger.create({ trigger: el, start, once: true, onEnter: () => tl.play() });
+  return replayOnScroll(el, build(el), start);
 }
